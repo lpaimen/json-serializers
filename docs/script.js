@@ -116,7 +116,7 @@ function compare() {
   var baseLine = baseLineFn(text)
 
   var resultsEl = document.getElementById("results");
-  resultsEl.innerHTML = `<tr><td>Name</td><td>Size</td><td>% of JSON</td><td>gzipped</td><td>gzip ratio</td><td>compression from baseline</td></tr>`
+  resultsEl.innerHTML = `<tr><td>Name</td><td>Size</td><td>% of JSON</td><td>compressed</td><td>compression</td><td>of original</td></tr>`
 
   for (var fn of [json, original, formattedJson, cbor, bson, msgPack]) {
     var result = fn(text)

@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.10/pako.js" integrity="sha256-wmSTuQQNlDueEB4eZCyh9TXmM3owUxhpNP+G5/jc/mc=" crossorigin="anonymous"></script>    <script src="cbor.js"></script>
+    </head>
+  <body>
+    JSON:
+    <input type="button" onclick="genInput(this)" value="doubleAr(1000)"/>
+    <input type="button" onclick="genInput(this)" value="int8Ar(1000)"/>
+    <br/>
+    <textarea style="width:100%" rows="25" id="input">{
+      "foo": "bar",
+      "listOfFloat": [1.0,2.01980985,3.793486798,5.79486798]
+      }</textarea>
+    <br/>
+    <input type="button" onclick="compare()" value="Compare">
+    <div id="results">
+    </div>
+  </body>
+  <script src="script.js"></script>
+  </html>

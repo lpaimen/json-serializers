@@ -73,15 +73,23 @@ function bson(input) {
   }
 }
 
+function msgPack(input) {
+  var output = msgpack.encode(JSON.parse(input))
+  return {
+    name: "MessagePack",
+    length: output.length,
+    contents: output,
+    gzLength: pako.gzip(output).length
+  }
+}
+
 function compareWith(fn) {
   return (text, parent) => {
 
-    var t1 = Date.now()
     var result = fn(text)
-    result.ms = Date.now() - t1
 
     var el = document.createElement("div");
-    el.innerHTML = `<b>${result.name}:</b> (${result.ms} ms)<br/>
+    el.innerHTML = `<b>${result.name}:</b><br/>
       ${result.length} bytes, ratio ${percent(result.length / text.length)}% of original<br/>
       gzipped: ${result.gzLength} bytes, compression ratio ${percent(result.gzLength / result.length)}%, ${percent(result.gzLength / text.length)}% of original`
     parent.appendChild(el)
@@ -99,6 +107,7 @@ function compare() {
   compareWith(formattedJson)(text, resultsEl)
   compareWith(cbor)(text, resultsEl)
   compareWith(bson)(text, resultsEl)
+  compareWith(msgPack)(text, resultsEl)
 }
 
 compare()

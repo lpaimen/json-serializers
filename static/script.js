@@ -63,6 +63,16 @@ function cbor(input) {
   }
 }
 
+function bson(input) {
+  var output = (new BSON()).serialize(JSON.parse(input))
+  return {
+    name: "BSON",
+    length: output.length,
+    contents: output,
+    gzLength: pako.gzip(output).length
+  }
+}
+
 function compareWith(fn) {
   return (text, parent) => {
 
@@ -88,6 +98,7 @@ function compare() {
   compareWith(json)(text, resultsEl)
   compareWith(formattedJson)(text, resultsEl)
   compareWith(cbor)(text, resultsEl)
+  compareWith(bson)(text, resultsEl)
 }
 
 compare()

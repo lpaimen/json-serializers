@@ -110,29 +110,28 @@ function percent(num) {
   return Math.round(num * 10000) / 100
 }
 
-function compareWith(fn) {
-  return (text, parent) => {
-    var result = fn(text)
-    var el = document.createElement("div");
-    el.innerHTML = `<b>${result.name}:</b><br/>
-      ${result.length} bytes, ratio ${percent(result.length / text.length)}% of original<br/>
-      gzipped: ${result.gzLength} bytes, compression ratio ${percent(result.gzLength / result.length)}%, ${percent(result.gzLength / text.length)}% of original`
-    parent.appendChild(el)
-  }
-}
-
 function compare() {
   var text = document.getElementById("input").value
+  var baseLineFn = json;
+  var baseLine = baseLineFn(text)
 
   var resultsEl = document.getElementById("results");
-  resultsEl.innerHTML = `Input: ${text.length} bytes<p>`
+  resultsEl.innerHTML = `<tr><td>Name</td><td>Size</td><td>% of JSON</td><td>gzipped</td><td>gzip ratio</td><td>compression from baseline</td></tr>`
 
-  compareWith(original)(text, resultsEl)
-  compareWith(json)(text, resultsEl)
-  compareWith(formattedJson)(text, resultsEl)
-  compareWith(cbor)(text, resultsEl)
-  compareWith(bson)(text, resultsEl)
-  compareWith(msgPack)(text, resultsEl)
+  for (var fn of [json, original, formattedJson, cbor, bson, msgPack]) {
+    var result = fn(text)
+    var el = document.createElement("tr")
+    if (fn == baseLineFn) {
+      el.style.backgroundColor = "#ddd"
+    }
+    el.innerHTML = `<td>${result.name}</td>
+      <td>${result.length} bytes</td>
+      <td>${percent(result.length / baseLine.length)}%</td>
+      <td>${result.gzLength} bytes</td>
+      <td>${percent(result.gzLength / result.length)}%</td>
+      <td>${percent(result.gzLength / baseLine.length)}%</td>`
+    resultsEl.appendChild(el)
+  }
 }
 
 document.getElementById("sampleinput").click()

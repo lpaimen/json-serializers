@@ -1,27 +1,45 @@
-function int8Ar(num = 1000) {
-  var res = [];
-  for (var i = 0; i < num; i++) {
-    res.push(Math.round((Math.random() - 0.5) * 127))
+function sampleinput() {
+  return {
+    "first name": "John",
+    "last name": "Smith",
+    "age": 25,
+    "address": {
+      "street address": "21 2nd Street",
+      "city": "New York",
+      "state": "NY",
+      "postal code": "10021"
+    },
+    "phone numbers": [
+      {
+        "type": "home",
+        "number": "212 555-1234"
+      },
+      {
+        "type": "fax",
+        "number": "646 555-4567"
+      }
+    ],
+    "sex": {
+      "type": "male"
+    }
   }
-  return res;
 }
 
-function doubleAr(num = 1000) {
-  var res = []
+function repeat(fn, num) {
+  num = num || 10
+  var res = [];
   for (var i = 0; i < num; i++) {
-    res.push((Math.random() - 0.5) * 2)
+    res.push(fn())
   }
   return res
 }
 
-function genInput(el) {
-  
-  document.getElementById("input").value = JSON.stringify(eval(el.value), null, 2)
-  compare()
+function rndInt8() {
+  return Math.floor((Math.random() - 0.5) * 255)
 }
 
-function percent(num) {
-  return Math.round(num * 10000) / 100
+function rndBool() {
+  return Math.random() < 0.5
 }
 
 function original(input) {
@@ -83,11 +101,18 @@ function msgPack(input) {
   }
 }
 
+function genInput(el) {
+  document.getElementById("input").value = JSON.stringify(eval(el.value), null, 2)
+  compare()
+}
+
+function percent(num) {
+  return Math.round(num * 10000) / 100
+}
+
 function compareWith(fn) {
   return (text, parent) => {
-
     var result = fn(text)
-
     var el = document.createElement("div");
     el.innerHTML = `<b>${result.name}:</b><br/>
       ${result.length} bytes, ratio ${percent(result.length / text.length)}% of original<br/>
@@ -100,7 +125,7 @@ function compare() {
   var text = document.getElementById("input").value
 
   var resultsEl = document.getElementById("results");
-  resultsEl.innerHTML = `Original: ${text.length} bytes<p>`
+  resultsEl.innerHTML = `Input: ${text.length} bytes<p>`
 
   compareWith(original)(text, resultsEl)
   compareWith(json)(text, resultsEl)
@@ -110,4 +135,4 @@ function compare() {
   compareWith(msgPack)(text, resultsEl)
 }
 
-compare()
+document.getElementById("sampleinput").click()

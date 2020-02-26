@@ -8,16 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/msgpack-lite/0.1.26/msgpack.min.js" integrity="sha256-xnDLLYKxKFwLEmQK1SkZ9I7IwmjdeURGtXUk/0WnTRo=" crossorigin="anonymous"></script>
     </head>
   <body>
-    JSON:
-    <input type="button" onclick="genInput(this)" value="doubleAr(1000)"/>
-    <input type="button" onclick="genInput(this)" value="int8Ar(1000)"/>
+    Input (JSON object or array):
     <br/>
-    <textarea style="width:100%" rows="25" id="input">{
-      "foo": "bar",
-      "listOfFloat": [1.0,2.01980985,3.793486798,5.79486798]
-      }</textarea>
+    Set: 
+    <input type="button" onclick="genInput(this)" value="sampleinput()" id="sampleinput"/>
+    <input type="button" onclick="genInput(this)" value="repeat(sampleinput, 5)"/>
+    <input type="button" onclick="genInput(this)" value="repeat(Math.random, 1000)"/>
+    <input type="button" onclick="genInput(this)" value="repeat(rndInt8, 1000)"/>
+    <input type="button" onclick="genInput(this)" value="repeat(rndBool, 1000)"/>
+    <br/>
+    <textarea style="width:100%; font-family: monospace" rows="25" id="input"></textarea>
     <br/>
     <input type="button" onclick="compare()" value="Compare">
+    <p/>
     <div id="results">
     </div>
   </body>

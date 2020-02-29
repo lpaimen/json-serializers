@@ -29,11 +29,59 @@ function snowman() {
   return "☃"
 }
 
+function fuzz(what) {
+  if (what === null) {
+    return null
+  }
+  if (typeof what === "boolean") {
+    return rndBool()
+  }
+  if (typeof what === "number") {
+    if (Math.floor(what) === what) { // int
+      if (Math.abs(what) <= 128) {
+        return rndInt8()
+      }
+      if (what >= 0 && what < 256) {
+        return rndInt8() + 128
+      }
+      return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+    }
+    if (what >= 0 && what <= 1) {
+      return Math.random()
+    }
+    return Math.random() * Number.MAX_VALUE
+  }
+  if (typeof what === "string") {
+    var chars = what || "."
+    return repeat(
+      () => { return chars.charAt(Math.floor(Math.random() * chars.length)) },
+      what.length * (Math.random() + 0.5))
+    .join("")
+  }
+  if (Object.prototype.toString.call(what) === "[object Array]") {
+    return repeat((i) => {
+      return fuzz(what[i % what.length])
+    }, what.length * (Math.random() + 0.5))
+  }
+  if (typeof what === "object") {
+    var obj = {};
+    for (var key in what) {
+      // keep key
+      obj[key] = fuzz(what[key])
+    }
+    return obj
+  }
+  if (typeof what === "function") {
+    return fuzz(what())
+  }
+  return what
+}
+
 function repeat(fn, num) {
   num = num || 10
   var res = [];
   for (var i = 0; i < num; i++) {
-    res.push(fn())
+    res.push(fn(i))
   }
   return res
 }

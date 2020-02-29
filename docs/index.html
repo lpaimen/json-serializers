@@ -12,7 +12,8 @@
     <br/>
     Set: 
     <input type="button" onclick="genInput(this)" value="sampleinput()" id="sampleinput"/>
-    <input type="button" onclick="genInput(this)" value="repeat(sampleinput, 5)"/>
+    <input type="button" onclick="genInput(this)" value="fuzz(sampleinput())"/>
+    <input type="button" onclick="genInput(this)" value="repeat(() => {return fuzz(sampleinput())}, 10)"/>
     <input type="button" onclick="genInput(this)" value="repeat(Math.random, 1000)"/>
     <input type="button" onclick="genInput(this)" value="repeat(rndInt8, 1000)"/>
     <input type="button" onclick="genInput(this)" value="repeat(rndBool, 1000)"/>

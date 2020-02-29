@@ -25,6 +25,10 @@ function sampleinput() {
   }
 }
 
+function snowman() {
+  return "☃"
+}
+
 function repeat(fn, num) {
   num = num || 10
   var res = [];
@@ -45,7 +49,7 @@ function rndBool() {
 function original(input) {
   return {
     name: "Original input",
-    length: input.length,
+    length: byteLength(input),
     contents: input,
     gzLength: pako.gzip(input).length
   }
@@ -55,17 +59,21 @@ function formattedJson(input) {
   var output = JSON.stringify(JSON.parse(input), null, 2)
   return {
     name: "Formatted JSON",
-    length: output.length,
+    length: byteLength(output),
     contents: output,
     gzLength: pako.gzip(output).length
   }
+}
+
+function byteLength(str) {
+  return (new TextEncoder().encode(str)).length
 }
 
 function json(input) {
   var output = JSON.stringify(JSON.parse(input))  
   return {
     name: "JSON",
-    length: output.length,
+    length: byteLength(output),
     contents: output,
     gzLength: pako.gzip(output).length
   }

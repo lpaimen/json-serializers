@@ -1,16 +1,17 @@
 <!DOCTYPE html><html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>JSON serializers</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.10/pako.js" integrity="sha256-wmSTuQQNlDueEB4eZCyh9TXmM3owUxhpNP+G5/jc/mc=" crossorigin="anonymous"></script>
     <script src="cbor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-bson/2.0.8/bson.js" integrity="sha256-DbUlMtng8heAwpLR7yHqDHzXluYE98bTddWNEpDv9DE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/msgpack-lite/0.1.26/msgpack.min.js" integrity="sha256-xnDLLYKxKFwLEmQK1SkZ9I7IwmjdeURGtXUk/0WnTRo=" crossorigin="anonymous"></script>
     </head>
   <body>
-    Input (JSON object or array):
-    <br/>
-    Set: 
+    <h1>JSON serializers</h1>
+    Compare size of different JSON serializers and their compressibility.
+    <p>
+    Presets:<br/>
     <input type="button" onclick="genInput(this)" value="sampleinput()" id="sampleinput"/>
     <input type="button" onclick="genInput(this)" value="fuzz(sampleinput())"/>
     <input type="button" onclick="genInput(this)" value="repeat(() => {return fuzz(sampleinput())}, 10)"/>
@@ -18,11 +19,13 @@
     <input type="button" onclick="genInput(this)" value="repeat(rndInt8, 1000)"/>
     <input type="button" onclick="genInput(this)" value="repeat(rndBool, 1000)"/>
     <input type="button" onclick="genInput(this)" value="snowman()"/>
+    <p>
+    JSON:
     <br/>
     <textarea style="width:100%; font-family: monospace" rows="25" id="input"></textarea>
     <br/>
     <input type="button" onclick="compare()" value="Compare">
-    <p/>
+    <p>
     <table id="results" border="1">
     </table>
   </body>

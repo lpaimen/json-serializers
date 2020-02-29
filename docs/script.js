@@ -94,12 +94,17 @@ function rndBool() {
   return Math.random() < 0.5
 }
 
+function byteLength(str) {
+  return (new TextEncoder().encode(str)).length
+}
+
 function original(input) {
   return {
     name: "Original input",
     length: byteLength(input),
     contents: input,
-    gzLength: pako.gzip(input).length
+    gzLength: pako.gzip(input).length,
+    notes: ""
   }
 }
 
@@ -109,12 +114,9 @@ function formattedJson(input) {
     name: "Formatted JSON",
     length: byteLength(output),
     contents: output,
-    gzLength: pako.gzip(output).length
+    gzLength: pako.gzip(output).length,
+    notes: ""
   }
-}
-
-function byteLength(str) {
-  return (new TextEncoder().encode(str)).length
 }
 
 function json(input) {
@@ -123,7 +125,8 @@ function json(input) {
     name: "JSON",
     length: byteLength(output),
     contents: output,
-    gzLength: pako.gzip(output).length
+    gzLength: pako.gzip(output).length,
+    notes: ""
   }
 }
 
@@ -133,7 +136,8 @@ function cbor(input) {
     name: "CBOR",
     length: output.byteLength,
     contents: output,
-    gzLength: pako.gzip(output).length
+    gzLength: pako.gzip(output).length,
+    notes: "Doesn't distinguish between float and double"
   }
 }
 
@@ -143,7 +147,8 @@ function bson(input) {
     name: "BSON",
     length: output.length,
     contents: output,
-    gzLength: pako.gzip(output).length
+    gzLength: pako.gzip(output).length,
+    notes: ""
   }
 }
 
@@ -153,7 +158,8 @@ function msgPack(input) {
     name: "MessagePack",
     length: output.length,
     contents: output,
-    gzLength: pako.gzip(output).length
+    gzLength: pako.gzip(output).length,
+    notes: "Doesn't distinguish between float and double"
   }
 }
 
@@ -172,7 +178,7 @@ function compare() {
   var baseLine = baseLineFn(text)
 
   var resultsEl = document.getElementById("results");
-  resultsEl.innerHTML = `<tr><td>Name</td><td>Size</td><td>% of JSON</td><td>compressed</td><td>compression</td><td>of original</td></tr>`
+  resultsEl.innerHTML = `<tr><td>Name</td><td>Size</td><td>After gzip</td><td>Notes</td></tr>`
 
   for (var fn of [json, original, formattedJson, cbor, bson, msgPack]) {
     var result = fn(text)
@@ -182,10 +188,8 @@ function compare() {
     }
     el.innerHTML = `<td>${result.name}</td>
       <td>${result.length} bytes</td>
-      <td>${percent(result.length / baseLine.length)}%</td>
       <td>${result.gzLength} bytes</td>
-      <td>${percent(result.gzLength / result.length)}%</td>
-      <td>${percent(result.gzLength / baseLine.length)}%</td>`
+      <td>${result.notes}</td>` 
     resultsEl.appendChild(el)
   }
 }

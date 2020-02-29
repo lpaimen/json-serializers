@@ -9,25 +9,28 @@
     </head>
   <body>
     <h1>JSON serializers</h1>
-    Compare size of different JSON serializers and their compressibility.
     <p>
-    Presets:<br/>
-    <input type="button" onclick="genInput(this)" value="sampleinput()" id="sampleinput"/>
-    <input type="button" onclick="genInput(this)" value="fuzz(sampleinput())"/>
-    <input type="button" onclick="genInput(this)" value="repeat(() => {return fuzz(sampleinput())}, 10)"/>
-    <input type="button" onclick="genInput(this)" value="repeat(Math.random, 1000)"/>
-    <input type="button" onclick="genInput(this)" value="repeat(rndInt8, 1000)"/>
-    <input type="button" onclick="genInput(this)" value="repeat(rndBool, 1000)"/>
-    <input type="button" onclick="genInput(this)" value="snowman()"/>
+      Compare size of different drop-in JSON alternatives and their compressibility: JSON, CBOR, BSON and MessagePack.
+    </p>
     <p>
-    JSON:
-    <br/>
-    <textarea style="width:100%; font-family: monospace" rows="25" id="input"></textarea>
-    <br/>
-    <input type="button" onclick="compare()" value="Compare">
+      Data presets:<br/>
+      <input type="button" onclick="genInput(this)" value="sampleinput()" id="sampleinput"/>
+      <input type="button" onclick="genInput(this)" value="fuzz(sampleinput())"/>
+      <input type="button" onclick="genInput(this)" value="repeat(() => {return fuzz(sampleinput())}, 10)"/>
+      <input type="button" onclick="genInput(this)" value="repeat(Math.random, 1000)"/>
+      <input type="button" onclick="genInput(this)" value="repeat(rndInt8, 1000)"/>
+      <input type="button" onclick="genInput(this)" value="repeat(rndBool, 1000)"/>
+      <input type="button" onclick="genInput(this)" value="snowman()"/>
+    </p>
     <p>
-    <table id="results" border="1">
-    </table>
+      JSON:
+      <br/>
+      <textarea style="width:100%; font-family: monospace" rows="25" id="input"></textarea>
+      <input type="button" onclick="compare()" value="Compare">
+    </p>
+    <p>
+      <table id="results" border="1"></table>
+    </p>
   </body>
   <script src="script.js"></script>
   </html>

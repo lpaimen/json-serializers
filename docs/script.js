@@ -137,7 +137,7 @@ function cbor(input) {
     length: output.byteLength,
     contents: output,
     gzLength: pako.gzip(output).length,
-    notes: "Doesn't distinguish between float and double"
+    notes: "Implementation doesn't distinguish between float and double"
   }
 }
 
@@ -159,7 +159,7 @@ function msgPack(input) {
     length: output.length,
     contents: output,
     gzLength: pako.gzip(output).length,
-    notes: "Doesn't distinguish between float and double"
+    notes: "Implementation doesn't distinguish between float and double"
   }
 }
 
